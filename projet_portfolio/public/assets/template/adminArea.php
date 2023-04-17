@@ -14,8 +14,9 @@
 
 </head>
 <body>
+<?php include '../locales/fr.php'?>
 
-<?php include 'navbar.html'; ?>
+<?php include 'navbar.php'; ?>
 <div class="container">
     <h1>contact me</h1>
     <h4 style="text-align:center">I'd love to hear from you!</h4>

@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="../css/contact.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <script src="../js/contact.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
 
 
 </head>
 <body>
-
-<?php include 'navbar.html'; ?>
+<?php include '../locales/fr.php'?>
+<?php include 'navbar.php'; ?>
 
 <div class="container">
     <h1>contact me</h1>
