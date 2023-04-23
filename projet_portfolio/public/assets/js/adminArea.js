@@ -1,19 +1,26 @@
+const form = document.querySelector('form');
+
 const submitAjax = function (event) {
-    let form = event.target;
-    $.ajax({
-        url: $(form).attr('action'),
-        type: "POST",
-        data: new FormData(form),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (response) {
-            $(form).trigger("reset"); // to reset form input fields
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
+    const data = new FormData(form);
+    data.append('function', 'createPortfolio');
+
+
+    fetch('http://localhost:8080/app/controllers/PortfolioController.php', {
+        method: 'POST',
+        body: data
+    })
+        .then(response => {
+            if (response.ok) {
+                // alert('Form submitted successfully!');
+                form.reset();
+            } else {
+                alert('Error submitting form.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
 }
 document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault()

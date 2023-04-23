@@ -24,9 +24,23 @@ include '../locales/' . $language . '.php';
 ?>
 
 <?php include 'navbar.php'; ?>
-<div><a href="NewPortfolio.php" style="font-size: 2rem">Add Portfolio</a>
-<p></p>
+<div class="container">
+    <h1>congrats</h1>
+    <h4 style="text-align:center">nice portfolio</h4>
+    <form method="POST" action="http://localhost:8080/app/controllers/PortfolioController.php"
 
+    <label for="imgName">imgName:</label>
+    <input type="text" id="imgName" name="imgName" placeholder="Your name..">
+
+    <label for="title">title:</label>
+    <input type="text" id="title" name="title" placeholder="Your last name..">
+
+    <label for="object">object:</label>
+    <input type="text" id="object" name="object" placeholder="Your last name..">
+    <input type="submit" value="Submit">
+
+    </form>
 </div>
+
 </body>
 </html>

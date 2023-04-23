@@ -8,7 +8,8 @@
     <title>Contact</title>
     <link rel="stylesheet" href="../css/contact.css">
     <link rel="stylesheet" href="../css/navbar.css">
-    <script src="../js/adminArea.js" defer></script>
+    <script src="../js/contact.js" defer></script>
+    <script src="../js/script.js" defer></script>
 
 
 </head>
@@ -22,11 +23,12 @@ if (isset($_COOKIE['language'])) {
 include '../locales/' . $language . '.php';
 
 ?>
-
 <?php include 'navbar.php'; ?>
-<div><a href="NewPortfolio.php" style="font-size: 2rem">Add Portfolio</a>
-<p></p>
-
+<div>
+    <a href="ContactGet.php" style="font-size: 2rem; ">Contact Get methode</a>
 </div>
+
+<a href="Contact.php" style="font-size: 2rem; ">Contact Post methode</a>
+
 </body>
 </html>

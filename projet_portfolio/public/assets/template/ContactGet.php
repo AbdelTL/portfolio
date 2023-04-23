@@ -8,28 +8,20 @@
     <title>Contact</title>
     <link rel="stylesheet" href="../css/contact.css">
     <link rel="stylesheet" href="../css/navbar.css">
-    <script src="../js/contact.js" defer></script>
-    <script src="../js/script.js" defer></script>
+    <script src="../js/contactGet.js" defer></script>
 
 
 </head>
 <body>
-<?php
-if(isset($_COOKIE['language'])) {
-    $language = $_COOKIE['language'];
-} else {
-    $language = 'en';
-}
-include '../locales/' . $language . '.php';
-
-?>
+<?php include '../locales/fr.php'?>
 <?php include 'navbar.php'; ?>
 
 
 <div class="container">
-    <h1>contact me</h1>
-    <h4 style="text-align:center">I'd love to hear from you!</h4>
-    <form method="POST" action="http://localhost:8080/app/controllers/ContactController.php"
+    <h1>contact Get</h1>
+    <h4 style="text-align:center">I'd love to hear from you!
+    m get</h4>
+    <form method="GET" action="http://localhost:8080/app/controllers/ContactController.php"
 
     <label for="firstname">firstname:</label>
     <input type="text" id="firstname" name="firstname" placeholder="Your name..">

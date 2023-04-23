@@ -24,13 +24,12 @@ const onSubmit = function (event) {
     email.addEventListener('input', eventInputEmail)
     if (eventInputEmail(event)) {
         const formData = new FormData(form);
-
+        const formDataQueryString = new URLSearchParams(formData).toString();
         const options = {
-            method: 'POST',
-            body: formData
+            method: 'GET',
         };
 
-        fetch('http://localhost:8080/app/controllers/ContactController.php', options)
+        fetch(`http://localhost:8080/app/controllers/ContactController.php?${formDataQueryString}`, options)
             .then(response => {
                 if (response.ok) {
                     form.reset();

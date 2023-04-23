@@ -30,16 +30,6 @@ class ContactInfo extends Database
             ->fetchAll();
     }
 
-    public function createContact(string $email, string $firstname, string $lastname, string $object)
-    {
-        $stmt = $this->pdo->prepare("INSERT INTO contact ('email', 'firstname', 'lastname', 'object') VALUES (:email, :firstname,:lastname,:object)");
-        $stmt->bindValue(':email', htmlspecialchars($email));
-        $stmt->bindValue(':firstname', htmlspecialchars($firstname));
-        $stmt->bindValue(':lastname', htmlspecialchars($lastname));
-        $stmt->bindValue(':object', htmlspecialchars($object));
-        //$stmt->bindValue(':password', password_hash($password, PASSWORD_BCRYPT));
-        $stmt->execute();
-    }
 
 //post
     public function getContactById(int $id)
@@ -54,35 +44,56 @@ class ContactInfo extends Database
 
     private function checkEmail(string $email): bool
     {
-        return $email !== '' && strlen($email) <= 200;
+        $statement = $this->pdo->prepare('SELECT * FROM contact WHERE email = :email');
+        $statement->bindValue(':email', $email);
+
+       $statement->execute();
+
+        $exists = $statement->fetch();
+        return $email !== '' and strlen($email) < 200 and  empty($exists);
     }
 
     private function checkFirstname(string $firstname): bool
     {
-        return $firstname !== '' && strlen($firstname) <= 50;
+        return $firstname !== '' and strlen($firstname) <= 50;
     }
 
     private function checkLastname(string $lastname): bool
     {
-        return $lastname !== '' && strlen($lastname) <= 50;
+        return $lastname !== ' b' and strlen($lastname) <= 50;
     }
 
 
     private function checkObject(string $object): bool
     {
-        return $object !== '' && strlen($object) <= 50;
+        return $object !== '' and strlen($object) <= 50;
     }
 
-    public
-    function createPost(string $email, string $firstname, string $lastname, string $object)
+    public function createContact(string $email, string $firstname, string $lastname, string $object)
     {
-        if ($this->checkEmail($email) && $this->checkFirstname($firstname) && $this->checkLastname($lastname) && $this->checkObject($object)) {
-            $stmt = $this->pdo->prepare("INSERT INTO contact ('email', 'firstname','lastname','object') VALUES (:email, :firstname,:lastname,:object)");
+        if ($this->checkEmail($email) and $this->checkFirstname($firstname) and $this->checkLastname($lastname) and $this->checkObject($object)) {
+            $stmt = $this->pdo->prepare("INSERT INTO contact (email, firstname, lastname, object) VALUES (:email, :firstname, :lastname, :object)");
             $stmt->bindValue(':email', htmlspecialchars($email));
-            $stmt->bindValue(':firstname', htmlspecialchars($firstname));
-            $stmt->bindValue(':lastname', htmlspecialchars($lastname));
+            $stmt->bindValue(':firstname', htmlspecialchars($firstname ));
+            $stmt->bindValue(':lastname', htmlspecialchars($lastname ));
             $stmt->bindValue(':object', htmlspecialchars($object));
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                $error = array(
+                    'error' => 'There was a problem creating the contact. Please try again later.'
+                );
+                header('Content-Type: application/json');
+                http_response_code(500);
+                echo json_encode($error);
+                exit;
+            }
+        } else {
+            $error = array(
+                'error' => 'There was a problem creating the contact. Please check your input and try again.'
+            );
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode($error);
+            exit;
         }
     }
 
